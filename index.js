@@ -18,7 +18,14 @@ async function run() {
         const database = client.db(process.env.DB_NAME);
         const userCollection = database.collection(process.env.DB_COLLECTION);
 
-        console.log("db connection ok");
+        // console.log("db connection ok");
+
+        // GET API 
+        app.get('/users', async (req, res) =>{
+            const cursor = userCollection.find({});
+            const users = await cursor.toArray();
+            res.send(users);
+        })
 
         // POST API 
         app.post('/users', async (req, res) => {
